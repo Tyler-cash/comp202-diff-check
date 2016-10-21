@@ -1,5 +1,7 @@
 import os
 
+import shutil
+
 
 def main():
     current_dir = os.getcwd()
@@ -11,23 +13,33 @@ def main():
 
     # Deletes dir if it exists
     if os.path.exists(run_dir):
-        os.removedirs(run_dir)
+        shutil.rmtree(run_dir, ignore_errors=True)
     os.makedirs(run_dir)
     print("Directory \"" + dir_name + "\" created")
 
-    # Iterates through each stage and gets the command string, also the expected err and out
-    commands = []
-    err = []
-    out = []
+    # Compares output with each test
     for i in range(1, 10):
-        file_name = "test" + str(i)
-        file_location = os.path.join(current_dir, stage, file_name)
+        current_test = "test" + str(i)
+        command = ""
+        err = ""
+        out = ""
+        stage_dir = os.path.join(current_dir, stage)
+        file_location = os.path.join(stage_dir, current_test)
         with open(file_location + ".cmd") as file:
-            commands.append(get_whole_file(file))
+            command = get_whole_file(file)
         with open(file_location + ".err") as file:
-            err.append(get_whole_file(file))
+            err = get_whole_file(file)
         with open(file_location + ".out") as file:
-            out.append(get_whole_file(file))
+            out = get_whole_file(file)
+        print("command, err and out successfully parsed for test" + str(i))
+
+        # Wipes test dir inside of run
+        run_test_dir = os.path.join(run_dir, "test" + str(i))
+
+        # Transfers contents of test directory to it's own directory inside of run
+        test_dir = os.path.join(stage_dir, current_test)
+        shutil.copytree(test_dir, run_test_dir)
+        print("Successfully copied " + current_test + "directory")
 
 
 def get_whole_file(file):
