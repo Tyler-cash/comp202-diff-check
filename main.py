@@ -2,11 +2,14 @@ import os
 
 import shutil
 
+import subprocess
+
 
 def main():
     current_dir = os.getcwd()
     stage = "stage1"
     dir_name = "run"
+    c_code_name = "dmake.c"
 
     # Instantiates directory
     run_dir = os.path.join(current_dir, stage, dir_name)
@@ -39,7 +42,10 @@ def main():
         # Transfers contents of test directory to it's own directory inside of run
         test_dir = os.path.join(stage_dir, current_test)
         shutil.copytree(test_dir, run_test_dir)
-        print("Successfully copied " + current_test + "directory")
+        print("Successfully copied " + current_test + " directory")
+
+        # Runs gcc and compiles c code defined by c_code_name variable
+        subprocess.call('gcc ' + c_code_name + "; pwd;", shell=True, env={'PATH': '/sbin:/bin:/usr/bin'})
 
 
 def get_whole_file(file):
