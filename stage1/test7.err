@@ -1,2 +1,0 @@
-Syntax error at line 3: Unexpected command without rule header:
-	gcc -o echo echo.o
