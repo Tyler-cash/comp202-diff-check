@@ -1,5 +1,5 @@
 import os
-
+from input import c_code_name, stage_number
 import shutil
 
 import subprocess
@@ -7,9 +7,8 @@ import subprocess
 
 def main():
     current_dir = os.getcwd()
-    stage = "stage1"
+    stage = "stage" + str(stage_number)
     dir_name = "run"
-    c_code_name = "dmake.c"
 
     # Instantiates directory
     run_dir = os.path.join(current_dir, stage, dir_name)
