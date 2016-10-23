@@ -53,10 +53,11 @@ def main():
         os.chdir(run_test_dir)
         print(current_test)
         os.system("./a.out " + command + " > piped.out 2>piped.err")
-        os.system("diff -b ./piped.out ../../" + current_test +".out" )
-        os.system("diff -b ./piped.err ../../" + current_test + ".err")
+        print("------------ STDOUT ------------")
+        os.system("diff -bB ./piped.out ../../" + current_test +".out" )
+        print("------------ ERROR -------------")
+        os.system("diff -bB ./piped.err ../../" + current_test + ".err")
         os.chdir(previous_dir)
-        print("\n___________________________________________________________\n")
 
 
 def get_whole_file(file_path):
