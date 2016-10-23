@@ -21,7 +21,7 @@ def main():
     print("Directory \"" + dir_name + "\" created")
 
     # Compares output with each test
-    for i in range(1, 10):
+    for i in range(1, 11):
         current_test = "test" + str(i)
         command = ""
         err = ""
@@ -42,15 +42,21 @@ def main():
         shutil.copytree(test_dir, run_test_dir)
 
         # Runs gcc and compiles c code defined by c_code_name variable
-        subprocess.call("gcc " + c_code_name + ";", shell=True, env={"PATH": "/sbin:/bin:/usr/bin"})
+        os.system("gcc " + c_code_name)
 
         # copies compiled c_code_name inside of test directory inside of run
         shutil.copy(os.path.join(current_dir, "a.out"), run_test_dir)
         executable_dir = os.path.join(test_dir, "a.out")
 
         # shell_command = os.path.join(run_test_dir, "a.out") + " " + command + " > piped.out"
+        previous_dir = os.getcwd()
         os.chdir(run_test_dir)
+        print(current_test)
         os.system("./a.out " + command + " > piped.out 2>piped.err")
+        os.system("diff -b ./piped.out ../../" + current_test +".out" )
+        os.system("diff -b ./piped.err ../../" + current_test + ".err")
+        os.chdir(previous_dir)
+        print("\n___________________________________________________________\n")
 
 
 def get_whole_file(file_path):
