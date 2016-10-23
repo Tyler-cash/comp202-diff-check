@@ -1,10 +1,13 @@
 # Only natively supports single C file projects 
 
 #Automating the checking of the COMP202 assignment3
-## How to use?
+## Prepare script
 `git clone` the repository, then move the `test.py` and `input.py` script into the root of your COMP202 assignment 3 folder. This folder 
 should contain a folder that's called `stageX`. Where X is the stage number defined in `input.py`. Also your C program should be specified 
 in `c_code_name` also in `input.py` sample `input.py` is provided
+## Run script
+To run this script type `python test.py`. The script should execute and will then output the outcome of each test to stdout.
+
 ## Assumed project structure
 #### `input.py`
 ```
