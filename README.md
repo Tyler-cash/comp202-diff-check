@@ -26,7 +26,10 @@ c_code_name = "dmake.c"
 ├── stage1#Is the extracted stage folder provided 
 |  ├── test1
 |  ├── test2
-|  ├──  etc
+|  ├── test1.cmd
+|  ├── test1.err
+|  ├── test1.out
+|  ├── etc
 └──────────
 ```
 Hopefully everything works~
